@@ -1,4 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;800&display=swap');
+
+.hovertext {
+  position: static;
+  border-bottom: 1px dotted black;
+}
+
+.hovertext:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+
+
+}
+
+.hovertext:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
 
 *{
   margin: 0;

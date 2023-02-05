@@ -1,15 +1,45 @@
-import { AppBar, Container, makeStyles, MenuItem, Select, ThemeProvider, Toolbar, Typography,createTheme } from '@material-ui/core'
+import { AppBar, Container, makeStyles, MenuItem, 
+  Select, ThemeProvider, Toolbar, 
+  Typography,createTheme, InputLabel,FormControl } from '@material-ui/core'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { CoinState } from '../CoinsData'
-
+import { CoinState } from '../ChoosenCurrency'
+import logo from '../images/logo.png'
+import LoginAuth from './LoginAuth'
+import UserMenu from './UserMenu'
 const headerStyles = makeStyles(()=> ({
   title:{
     flex:1,
-    color:"#4290f5",
-    fontFamilit:"Unbounded",
+    fontFamily:"Unbounded",
     fontWeight:"bold",
     cursor:"pointer",
+  },
+  menu:{
+    fontFamily:"Unbounded",
+    fontWeight:"bold",
+  },
+  InputLabel:{
+    fontSize:13,
+    paddingRight:2,
+    paddingLeft:2,
+    backgroundColor:"#14161A",
+    border: "2px solid #14161A",
+    borderRadius:10,
+    fontFamily:"Rubik",
+    color:"white",
+    
+  },
+  selectField:{
+    fontSize:15,
+    width:92,
+    height:40,
+    backgroundColor:"#7BA5EE",
+    color:"black",
+    fontWeight:400,
+    fontFamily:"Rubik"
+  },
+  containerStyle:{
+    textAlign:"center",
   }
 }))
 
@@ -28,33 +58,46 @@ const Header = () => {
       }
     },
   });
-
-  const { currency, setCurrency} = CoinState();
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
+  };
+  const { currency, setCurrency, user} = CoinState();
   return (
-    <ThemeProvider theme={darkTheme}>
+    <div className={classes.containerStyle}>
+    <ThemeProvider theme={darkTheme} >
     <AppBar color='transparent' position='static'>
-      <Container>
-        <Toolbar>
+      <Container style={{paddingLeft:10,paddingRight:10}} >
+        <Toolbar style={{padding:0}}>
+        {user ? <UserMenu /> : <LoginAuth />}
           <Typography onClick={()=>history.push("/")}
                       className={classes.title}>
-            Coins World
+            <img src = {logo} alt="Logo"
+            style={{
+              height:80,
+              marginBottom:10,
+              marginTop:10,
+            }}/>
           </Typography >
-          <Select variant="outlined"
-          style={{
-            width:120,
-            height:40,
-            marginRight:15,
-          }}
+          <FormControl variant="outlined">
+           <InputLabel  
+           className={classes.InputLabel} id="demo-simple-select-outlined-label"> Currency </InputLabel>
+          <Select 
+          labelId="demo-simple-select-outlined-label"
+          
+          onChange={handleChange}
+          label="Currency"
           value={currency}
-          onChange={(e) => setCurrency(e.target.value)}>
-            <MenuItem value={"NIS"}>ILS</MenuItem>
-            <MenuItem value={"USD"}>USD</MenuItem> 
-            <MenuItem value={"EUR"}>EUR</MenuItem>
+          className={classes.selectField}
+          >
+            <MenuItem value={"ILS"}>₪ ILS</MenuItem>
+            <MenuItem value={"USD"}>$ USD</MenuItem> 
+            <MenuItem value={"EUR"}>€ EUR</MenuItem>
           </Select>
+          </FormControl>
         </Toolbar>
       </Container>
     </AppBar>
-    </ThemeProvider>
+    </ThemeProvider></div>
   )
 }
 

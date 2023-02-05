@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import CoinsData from "./CoinsData";
+import "react-alice-carousel/lib/alice-carousel.css";
+import ChoosenCurrency from "./ChoosenCurrency";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CoinsData>
+    <ChoosenCurrency>
       <App />
-    </CoinsData>
-  </React.StrictMode>,
+    </ChoosenCurrency>,
+</React.StrictMode>,
   document.getElementById('root')
 );
 
